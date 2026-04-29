@@ -1,3 +1,6 @@
+<img width="822" height="752" alt="Screenshot 2026-04-29 165417" src="https://github.com/user-attachments/assets/de3f188d-47f5-4b72-9c63-35e969fc1fd5" />
+
+
 # ESP32 Spotify Display
 
 A compact, WiFi-enabled desktop display that shows your currently playing Spotify track in real time. Built around an ESP32 and a small TFT screen, this project combines hardware design, embedded programming, and API integration to create a sleek, functional music companion for your workspace.
