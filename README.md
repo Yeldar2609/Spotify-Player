@@ -1,53 +1,76 @@
-<img width="822" height="752" alt="Screenshot 2026-04-29 165417" src="https://github.com/user-attachments/assets/de3f188d-47f5-4b72-9c63-35e969fc1fd5" />
+# Spotify Display
 
+I am building a small desk display that shows what I am currently playing on Spotify. I wanted it to be something I could keep on my desk instead of always checking my phone or computer. I started from the Spotify display idea, but I am adding a rotary encoder so the project is not just a basic display. The encoder will be used as a physical volume knob, and pressing it can also work like a button for input.
 
-# ESP32 Spotify Display
+This project uses an ESP32 because it has WiFi built in, which is needed to connect to Spotify's API. The screen is a 1.8 inch ST7735 TFT display connected over SPI. I designed the enclosure in Autodesk Fusion and made space for the display, buttons, encoder, and mounting hardware. A lot of the early work was figuring out CAD basics, especially making closed sketches, extruding correctly, and placing the screen cutout in the center instead of guessing.
 
-A compact, WiFi-enabled desktop display that shows your currently playing Spotify track in real time. Built around an ESP32 and a small TFT screen, this project combines hardware design, embedded programming, and API integration to create a sleek, functional music companion for your workspace.
+## What I am adding
 
-## Overview
+The main extra feature I am adding is a rotary encoder for volume control. Turning the knob will be used to change volume, and the push button on the encoder can be used for an extra control like play/pause or select. I added this because the first design was too close to the guide, and I wanted the display to feel more like a real desk gadget with physical controls.
 
-This project connects to the Spotify Web API to fetch live playback data and renders it on a 1.8" TFT display. It’s designed to sit on your desk and provide at-a-glance information such as track title, artist, album art, and playback status—without needing to open your phone or desktop app.
+## Parts / BOM
 
-## Features
+| Part | Purpose | Qty | Estimated Cost |
+|---|---|---:|---:|
+| ESP32 board | Main microcontroller and WiFi connection | 1 | $8.99 |
+| 1.8 inch ST7735 TFT display | Shows Spotify track information | 1 | $9.95 |
+| Tactile switches | Basic user controls | 1 pack | $4.49 |
+| Rotary encoder | Volume knob / extra input | 1 | TBD |
+| M3 heat-set inserts | Stronger mounting points for the case | 1 pack | $5.99 |
 
-* Real-time Spotify playback display
-* WiFi connectivity using ESP32
-* SPI-driven TFT screen output
-* Physical buttons for basic controls (e.g., play/pause, skip)
-* Custom 3D-printed enclosure
-* Lightweight and always-on desktop companion
+A separate `BOM.csv` file is also included in the repo.
 
-## Tech Stack
+## Wiring Diagram
 
-* **ESP32** (WiFi-enabled microcontroller)
-* **SPI communication** for display control
-* **Spotify Web API** for music data
-* **Arduino / ESP-IDF** firmware
-* **Fusion 360** for CAD and enclosure design
+```mermaid
+flowchart LR
+    ESP32[ESP32 Board]
+    TFT[1.8 inch ST7735 TFT Display]
+    Buttons[Tactile Buttons]
+    Encoder[Rotary Encoder]
+    USB[USB Power]
 
-## Hardware
+    USB --> ESP32
 
-* ESP32 development board (tested with LOLIN C3 Mini)
-* 1.8" TFT display (ST7735 or ILI9341)
-* Tactile switches (or keyboard switches)
-* Optional: soldering setup or jumper wires
-* 3D-printed case with heat-set inserts
+    ESP32 -- 3.3V --> TFT
+    ESP32 -- GND --> TFT
+    ESP32 -- SCK --> TFT
+    ESP32 -- MOSI --> TFT
+    ESP32 -- CS/DC/RST --> TFT
 
-## How It Works
+    ESP32 -- GPIO Inputs --> Buttons
+    ESP32 -- CLK/DT/SW GPIO --> Encoder
+    ESP32 -- 3.3V/GND --> Encoder
+```
 
-The ESP32 connects to your WiFi network and authenticates with Spotify. It periodically requests the currently playing track and updates the display via SPI. User inputs through buttons can trigger playback actions via API calls.
+## Current pin plan
 
-## Goals
+| Component | Connection |
+|---|---|
+| TFT VCC | ESP32 3.3V |
+| TFT GND | ESP32 GND |
+| TFT SCK | ESP32 SPI SCK |
+| TFT MOSI | ESP32 SPI MOSI |
+| TFT CS / DC / RST | ESP32 GPIO pins |
+| Buttons | ESP32 GPIO input pins |
+| Rotary Encoder CLK / DT / SW | ESP32 GPIO input pins |
 
-* Build a functional IoT device with real-world API integration
-* Practice embedded systems development
-* Explore hardware + software co-design
-* Create a clean, minimal desktop gadget
+The exact GPIO numbers may change depending on the final ESP32 board layout and how the parts fit inside the case.
 
-## Future Improvements
+## Repo Organization
 
-* Album art rendering
-* Touchscreen or rotary encoder input
-* Bluetooth audio output
-* Custom UI themes and animations
+```text
+/assets   - screenshots, diagrams, and project images
+/CAD      - Fusion/STL files for the enclosure
+/code     - firmware files
+BOM.csv   - parts list
+README.md - project explanation
+```
+
+## Files and design work
+
+The enclosure was designed in Fusion. I adjusted the wall thickness, screen opening, and top panel so the display and controls would fit better. I also had to learn how to use measurements properly instead of just eyeballing placement. The case is meant to be 3D printed and assembled with heat-set inserts so it can be opened again if I need to fix wiring or adjust the electronics.
+
+## Current status
+
+Right now I have the CAD design started and the main parts list prepared. The next steps are to add the rotary encoder into the CAD, make sure the repo is organized into folders, and update the firmware so the ESP32 can read the encoder input and use it for volume control.
