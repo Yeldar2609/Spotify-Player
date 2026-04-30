@@ -1,0 +1,5 @@
+Name,Purpose,Quantity,Total Cost (USD),Link,Distributor
+"ESP32 Board","main microcontroller",1,8.99,"https://www.amazon.com/gp/product/B0DF2YJSHN/ref=ox_sc_act_title_4?th=1","Amazon"
+"1.8"" TFT display ST7735","shows track info ",1,9.95,"https://www.amazon.com/gp/product/B0D31BGJWF/ref=ox_sc_act_image_3?smid=ACSUDGHCXWYXE&psc=1","Amazon"
+"Tactile switches","user input (play/pause, skip, controls)",1,4.49,"https://www.amazon.com/gp/product/B0DSHTPSL3/ref=ox_sc_act_title_2?smid=A21YO8NJDFH072&psc=1","Amazon"
+"M3 Heatset inserts","strong threaded mounts for assembling the case",1,5.99,"https://www.amazon.com/gp/product/B0FDKYTMZ8/ref=ox_sc_act_title_1?smid=A1NOW8IJMU3II9&psc=1","Amazon"
